@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+:root {
+--dark: #111111;
+--dark-alternate: #1B1918;
+--primary: #FF5F3F;
+--primary-light: #F4EBEB;
+}
+
+@theme inline {
+  --color-dark: var(--dark);
+  --color-dark-alternate: var(--dark-alternate);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --font-poppins: var(--font-poppins);
+}
+
+@utility bg-primary {
+  background-color: var(--primary);
+}
+
+html {
+  overflow-x: hidden;
+}
+  
+* {
+  font-family: var(--font-poppins), sans-serif;
+}
