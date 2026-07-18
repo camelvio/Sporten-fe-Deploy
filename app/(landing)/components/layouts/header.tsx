@@ -1,21 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { FiSearch, FiShoppingBag } from "react-icons/fi";
+import CartPopup from "../ui/cart-popup";
+import { useState } from "react";
 
 const Header = () => {
+  const [isCartPopupOpen, setIsCartPopupOpen] = useState(false);
+
   return (
-    <header className="w-full">
-      <div className="flex justify-between items-center gap-10 container mx-auto py-7 px-4">
-        {/* 1. Logo */}
-        <Image
-          src="/images/Logo.svg"
-          alt="sporton logo"
-          width={127}
-          height={30}
-          priority
-        />
-        
-        {/* 2. Navigasi Menu (Lengkap dengan garis bawah aktif di menu Home) */}
+    <header>
+      <div className="flex justify-between gap-10 container mx-auto py-7">
+        <Link href="/">
+          <Image
+            src="/images/logo.svg"
+            alt="sporton logo"
+            width={127}
+            height={30}
+          />
+        </Link>
         <nav className="flex gap-24 font-medium">
           <Link
             href="#"
@@ -26,17 +30,18 @@ const Header = () => {
           <Link href="#">Category</Link>
           <Link href="#">Explore Products</Link>
         </nav>
-        
-        {/* 3. Ikon Fitur (Pencarian & Keranjang Belanja) */}
-        <div className="flex gap-10 items-center">
-          <FiSearch size={24} className="cursor-pointer" />
-          <div className="relative cursor-pointer">
+        <div className="relative flex gap-10">
+          <FiSearch size={24} />
+          <button
+            className="relative cursor-pointer"
+            onClick={() => setIsCartPopupOpen(!isCartPopupOpen)}
+          >
             <FiShoppingBag size={24} />
-            {/* Badge angka 3 menggunakan bg-primary (oranye) */}
-            <div className="bg-primary rounded-full w-3.5 h-3.5 absolute -top-1 -right-1 text-[10px] text-white flex items-center justify-center font-bold">
-              {"3"}
+            <div className="bg-primary rounded-full w-3.5 h-3.5 absolute -top-1 -right-1 text-[10px] text-white text-center">
+              3
             </div>
-          </div>
+          </button>
+          {isCartPopupOpen && <CartPopup />}
         </div>
       </div>
     </header>
