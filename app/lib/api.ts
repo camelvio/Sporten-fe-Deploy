@@ -1,10 +1,17 @@
+const DEFAULT_API_URL = "https://be-sporton.agunacourse.com/api";
+const DEFAULT_API_ROOT = "https://be-sporton.agunacourse.com";
+
 export async function fetchAPI<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
+  // Pakai fallback jika env variable bernilai undefined
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_URL;
+  const url = `${baseUrl}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
+
+  const res = await fetch(url, {
     ...options,
-    cache: options?.cache || "no-store", // kita set no-store karena kita ingin mendapat data lebih real time atau lebih updated
+    cache: options?.cache || "no-store",
   });
 
   if (!res.ok) {
@@ -22,7 +29,16 @@ export async function fetchAPI<T>(
   return res.json();
 }
 
-export function getImageUrl(path: string) {
-  if (path.startsWith("http")) return path; // artinya url nya sudah valid
-  return `${process.env.NEXT_PUBLIC_API_ROOT}/${path}`;
+export function getImageUrl(path?: string) {
+  // Jika path kosong/undefined, return string kosong biar gak error
+  if (!path) return "";
+  
+  // Jika sudah full URL (misal dari http/https)
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+
+  // Bersihkan slash ganda
+  const rootUrl = process.env.NEXT_PUBLIC_API_ROOT || DEFAULT_API_ROOT;
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+
+  return `${rootUrl}${cleanPath}`;
 }
