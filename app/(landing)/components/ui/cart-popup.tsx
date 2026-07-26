@@ -43,7 +43,7 @@ const CartPopup = () => {
               <div className="border-b border-gray-200 p-4 flex gap-3" key={item._id}>
                 <div className="bg-primary-light aspect-square w-16 flex justify-center items-center">
                   <Image
-                    src={getImageUrl(item.imageUrl || item.imgUrl || "")}
+                    src={getImageUrl(item.imgUrl || item.imgUrl || "")}
                     width={63}
                     height={63}
                     alt={item.name}
