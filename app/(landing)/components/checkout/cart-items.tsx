@@ -33,7 +33,7 @@ const CartItems = ({ handlePayment }: TCartItems) => {
             >
               <div className="bg-primary-light aspect-square w-16 flex justify-center items-center">
                 <Image
-                  src={getImageUrl(item.imageUrl)}
+                  src={getImageUrl(item.imageUrl || item.imgUrl || "")}
                   width={63}
                   height={63}
                   alt={item.name}

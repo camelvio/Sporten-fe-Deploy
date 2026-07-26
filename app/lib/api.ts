@@ -22,7 +22,8 @@ export async function fetchAPI<T>(
   return res.json();
 }
 
-export function getImageUrl(path: string) {
+export function getImageUrl(path?: string) {
+  if (!path) return "";
   if (path.startsWith("http")) return path; // artinya url nya sudah valid
   return `${process.env.NEXT_PUBLIC_API_ROOT}/${path}`;
 }

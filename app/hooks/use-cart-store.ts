@@ -4,10 +4,11 @@ import { persist } from "zustand/middleware";
 export interface CartItem {
   _id: string;
   name: string;
-  category: string;
+  category: string | any;
   price: number;
   qty: number;
-  imgUrl: string;
+  imageUrl?: string;
+  imgUrl?: string;
 }
 
 export interface CustomerInfo {
@@ -20,7 +21,7 @@ interface CartStore {
   customerInfo: CustomerInfo | null;
   items: CartItem[]; // <-- INI YANG BIKIN EROR KALAU LUPA DITULIS!
   setCustomerInfo: (info: CustomerInfo) => void;
-  addItem: (product: any, qty?: number) => void;
+ addItem: (product: CartItem | any, qty?: number) => void;
   removeItem: (productId: string) => void;
   reset: () => void;
 }
