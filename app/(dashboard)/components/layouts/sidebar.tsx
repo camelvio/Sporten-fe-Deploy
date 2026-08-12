@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   FiBox,
   FiCreditCard,
@@ -13,6 +13,12 @@ import {
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/admin/login");
+  };
 
   const menuItems = [
     {
@@ -64,13 +70,14 @@ const Sidebar = () => {
           );
         })}
       </div>
-      <Link
-        href="#"
-        className="flex gap-3 font-medium py-3 px-4.5 mx-5 hover:bg-gray-100 duration-300 rounded-lg mt-auto mb-10"
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="flex gap-3 font-medium py-3 px-4.5 mx-5 hover:bg-gray-100 duration-300 rounded-lg mt-auto mb-10 text-left items-center cursor-pointer"
       >
         <FiLogOut size={24} />
         Log Out
-      </Link>
+      </button>
     </aside>
   );
 };
